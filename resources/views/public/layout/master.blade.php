@@ -80,7 +80,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="w3l_sign_in_register">
 				<ul>
 					<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
-					<li><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+          <li id="my_login"><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
+          <li id="my_account" style="display:none"><a href="#" hidden >My Account</a></li>
+          <li id="my_logout" style="display:none"><a href="#" hidden >Logout</a></li>
 				</ul>
 			</div>
 			<div class="clearfix"> </div>
@@ -105,19 +107,29 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 							  <div class="form">
 								<h3>Login to your account</h3>
 								<form action="#" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="submit" value="Login">
+								  <input type="email" name="Username" id="email_login" placeholder="Email" required="">
+                  <input type="password" name="Password" id="password_login" placeholder="Password" required="">
+                  <input type="submit" id="login" value="Login">
 								</form>
 							  </div>
 							  <div class="form">
 								<h3>Create an account</h3>
-								<form action="#" method="post">
-								  <input type="text" name="Username" placeholder="Username" required="">
-								  <input type="password" name="Password" placeholder="Password" required="">
-								  <input type="email" name="Email" placeholder="Email Address" required="">
-								  <input type="text" name="Phone" placeholder="Phone Number" required="">
-								  <input type="submit" value="Register">
+								<form action="#">
+                  <input type="text" name="name" id="register_name" placeholder="Full name" required="">
+                  <div id="register_name_error" class="alert alert-danger" hidden></div>
+                  
+                  <input type="password" name="Password" id="register_password" placeholder="Password" required="">
+                  <div id="register_password_error" class="alert alert-danger" hidden></div>
+
+                  <input type="email" name="Email" id="register_email" placeholder="Email Address" required="">
+                  <div id="register_email_error" class="alert alert-danger" hidden></div>
+
+                  <input type="text" name="Phone" id="register_phone" placeholder="Phone Number" required="">
+                  <div id="register_phone_error" class="alert alert-danger" hidden></div>
+
+                  <input type="text" name="Address" id="register_address" placeholder="Address" required="">
+                  <div id="register_address_error" class="alert alert-danger" hidden></div>
+                  <input type="submit" id="register" value="Register">
 								</form>
 							  </div>
 							  <div class="cta"><a href="#">Forgot your password?</a></div>
@@ -321,6 +333,8 @@ $(document).ready(function(){
 			$().UItoTop({ easingType: 'easeOutQuart' });
 			});
   </script>
-  @yield('script')
+<script src="js/public/login.js"></script>
+<script src="js/public/category.js"></script>
+@yield('script')
 </body>
 </html>

@@ -40,9 +40,9 @@
             <th>@lang('cinema.admin.table.delete')</th>
             <th>@lang('cinema.admin.table.edit')</th>
           </tr>
-          @foreach ($cinemas as $cinema)
+          @foreach ($cinemas as $key => $cinema)
           <tr>
-            <td>{{ $cinema->id }}</td>
+            <td>{{ ++$key }}</td>
             <td>{{ $cinema->name }}</td>
             <td>{{ $cinema->address }}</td>
             <td>{{ $cinema->description }}</td>

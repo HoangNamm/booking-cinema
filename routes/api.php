@@ -23,7 +23,8 @@ Route::group(['as' => 'api.','namespace' => 'Api\User'], function () {
     // Route::put('/password/reset', 'ResetPasswordController@reset');
     // Route::get('/schedule/{schedule}/seat', 'ScheduleController@getSeat')->name('schedule.seat');
     Route::apiResource('categories', 'CategoryController');
-    // Route::apiResource('films', 'FilmController');
+    Route::apiResource('cinemas', 'CinemaController');
+    Route::apiResource('films', 'FilmController');
     // Route::get('search', 'FilmController@search')->name('search');
     Route::group(['middleware' => 'auth:api'], function () {
         // Route::apiResource('booking', 'BookingController');

@@ -32,6 +32,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <!-- font-awesome icons -->
 <link rel="stylesheet" href="public/css/font-awesome.min.css" />
 <!-- //font-awesome icons -->
+@yield('css')
 <!-- js -->
 <script type="text/javascript" src="public/js/jquery-2.1.4.min.js"></script>
 <!-- //js -->
@@ -81,7 +82,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<ul>
 					<li><i class="fa fa-phone" aria-hidden="true"></i> (+000) 123 345 653</li>
           <li id="my_login"><a href="#" data-toggle="modal" data-target="#myModal">Login</a></li>
-          <li id="my_account" style="display:none"><a href="#" hidden >My Account</a></li>
+          <li id="my_account" style="display:none"><a href="{{ route('auth.profile')}}" hidden >My Account</a></li>
           <li id="my_logout" style="display:none"><a href="#" hidden >Logout</a></li>
 				</ul>
 			</div>
@@ -116,13 +117,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<h3>Create an account</h3>
 								<form action="#">
                   <input type="text" name="name" id="register_name" placeholder="Full name" required="">
-                  <div id="register_name_error" class="alert alert-danger" hidden></div>
+                  <div id="full_name_error" class="alert alert-danger" hidden></div>
                   
                   <input type="password" name="Password" id="register_password" placeholder="Password" required="">
-                  <div id="register_password_error" class="alert alert-danger" hidden></div>
+                  <div id="password_error" class="alert alert-danger" hidden></div>
 
                   <input type="email" name="Email" id="register_email" placeholder="Email Address" required="">
-                  <div id="register_email_error" class="alert alert-danger" hidden></div>
+                  <div id="email_error" class="alert alert-danger" hidden></div>
 
                   <input type="text" name="Phone" id="register_phone" placeholder="Phone Number" required="">
                   <div id="register_phone_error" class="alert alert-danger" hidden></div>
@@ -175,38 +176,11 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Genres <b class="caret"></b></a>
 								<ul class="dropdown-menu multi-column columns-3">
 									<li>
-									<div class="col-sm-4">
+									<div class="col-sm-6">
 										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Action</a></li>
-											<li><a href="genres.html">Biography</a></li>
-											<li><a href="genres.html">Crime</a></li>
-											<li><a href="genres.html">Family</a></li>
-											<li><a href="horror.html">Horror</a></li>
-											<li><a href="genres.html">Romance</a></li>
-											<li><a href="genres.html">Sports</a></li>
-											<li><a href="genres.html">War</a></li>
+											
 										</ul>
 									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Adventure</a></li>
-											<li><a href="comedy.html">Comedy</a></li>
-											<li><a href="genres.html">Documentary</a></li>
-											<li><a href="genres.html">Fantasy</a></li>
-											<li><a href="genres.html">Thriller</a></li>
-										</ul>
-									</div>
-									<div class="col-sm-4">
-										<ul class="multi-column-dropdown">
-											<li><a href="genres.html">Animation</a></li>
-											<li><a href="genres.html">Costume</a></li>
-											<li><a href="genres.html">Drama</a></li>
-											<li><a href="genres.html">History</a></li>
-											<li><a href="genres.html">Musical</a></li>
-											<li><a href="genres.html">Psychological</a></li>
-										</ul>
-									</div>
-									<div class="clearfix"></div>
 									</li>
 								</ul>
 							</li>

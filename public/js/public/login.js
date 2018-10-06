@@ -1,8 +1,7 @@
 $(document).ready(function () {
     if (localStorage.getItem('login-token')) {
-        //window.location.href = 'http://' + window.location.hostname;
         $("#my_logout").show();
-        $("#my_account").show();//css("display", "block");
+        $("#my_account").show();
         $("#my_login").css("display", "none");
     }
     $(document).on('click', '#login', function (event) {
@@ -72,13 +71,11 @@ $(document).ready(function () {
                  window.location.href = 'http://' + window.location.hostname;
              },
              error: function (response) {
-                 var result = JSON.parse(response.responseText);
-                 var errors = result.errors;
-                 var html = '';
-                 $.each(errors, function(key, value) {
-                 html += '<strong class="error">' + value + '</strong><br>';
-                 });
-                 $('#error').html(html);
+                errors = Object.keys(response.responseJSON.errors);
+                errors.forEach(error => {
+                    $('#' + error + '_error').html(response.responseJSON.errors[error]);
+                    $('#' + error + '_error').show();
+                });
              }
          });
      })

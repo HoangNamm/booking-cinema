@@ -12,7 +12,9 @@ class User extends Authenticatable
 {
     use HasApiTokens, Notifiable, SoftDeletes;
     protected $table = 'users';
-
+    
+    const ROLE_ADMIN = 1;
+    const ROLE_USER = 0;
     /**
      * The attributes that should be mutated to dates.
      *

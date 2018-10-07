@@ -34,6 +34,8 @@ class CreateFilmRequest extends FormRequest
             'end_date' => 'date|after:start_date',
             'categories' => 'required',
             'categories.*' => 'required',
+            'cinemas' => 'required',
+            'cinemas.*' => 'required',
             'photos' => 'required',
             'photos.*' => 'image|mimes:jpg,png,jpeg|max:2048',
             'country' => 'required|string'

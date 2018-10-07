@@ -38,6 +38,16 @@ class Film extends Model
     }
 
     /**
+     * Get category film detail of film.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function cinemaFilms()
+    {
+        return $this->hasMany('App\Models\CinemaFilm', 'film_id', 'id');
+    }
+
+    /**
      * Get many category film detail of film.
      *
      * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
@@ -45,6 +55,16 @@ class Film extends Model
     public function categories()
     {
         return $this->belongsToMany('App\Models\Category', 'category_film', 'film_id', 'category_id')->withTimestamps();
+    }
+
+    /**
+     * Get many category film detail of film.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function cinemas()
+    {
+        return $this->belongsToMany('App\Models\Cinema', 'cinema_film', 'film_id', 'cinema_id')->withTimestamps();
     }
 
     /**

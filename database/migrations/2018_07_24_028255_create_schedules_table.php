@@ -15,20 +15,16 @@ class CreateSchedulesTable extends Migration
     {
         Schema::create('schedules', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('film_id');
+            $table->unsignedInteger('cinema_film_id');
             $table->unsignedInteger('room_id');
-            $table->unsignedInteger('cinema_id');
             $table->datetime('start_time');
             $table->datetime('end_time');
-            $table->foreign('film_id')
+            $table->foreign('cinema_film_id')
                     ->references('id')
-                    ->on('films');
+                    ->on('cinema_film');
             $table->foreign('room_id')
                     ->references('id')
                     ->on('rooms');
-            $table->foreign('cinema_id')
-                    ->references('id')
-                    ->on('cinemas');
             $table->timestamps();
             $table->softDeletes();
         });

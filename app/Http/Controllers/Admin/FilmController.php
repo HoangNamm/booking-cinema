@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Ticket;
 use App\Models\Image;
 use App\Models\Film;
+use App\Models\Cinema;
 use DB;
 
 class FilmController extends Controller
@@ -35,7 +36,9 @@ class FilmController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $cinemas = Cinema::all();
         $data['categories'] = $categories;
+        $data['cinemas'] = $cinemas;
         return view('admin.pages.films.create', $data);
     }
 
@@ -59,6 +62,7 @@ class FilmController extends Controller
         }
         $film->images()->createMany($imagesData);
         $film->categories()->sync($request->categories);
+        $film->cinemas()->sync($request->cinemas);
         return redirect()->route('admin.films.index')->with('message', trans('film.admin.message.add'));
     }
 
@@ -73,8 +77,10 @@ class FilmController extends Controller
     {
         try {
             $categories = Category::all();
+            $cinemas = Cinema::all();
             $categoryIds = $film->cateroryFilms->pluck('category_id')->toArray();
-            return view('admin.pages.films.edit', compact('film', 'categories', 'categoryIds'));
+            $cinemaIds = $film->cinemaFilms->pluck('cinema_id')->toArray();
+            return view('admin.pages.films.edit', compact('film', 'categories', 'categoryIds', 'cinemas', 'cinemaIds'));
         } catch (Exception $e) {
             return redirect()->route('admin.films.index')
                 ->with('message', trans('film.admin.message.edit_fail'));
@@ -118,6 +124,7 @@ class FilmController extends Controller
             }
            
             $film->categories()->sync($request->categories);
+            $film->cinemas()->sync($request->cinemas);
             return redirect()->route('admin.films.index')->with('message', trans('film.admin.message.edit'));
         } catch (Exception $e) {
             return redirect()->route('admin.films.index')
@@ -136,7 +143,8 @@ class FilmController extends Controller
     {
         try {
             $categoryFilms = $film->categories->pluck('name')->toArray();
-            return view('admin.pages.films.show', compact('film', 'categoryFilms'));
+            $cinemaFilms = $film->cinemas->pluck('name')->toArray();
+            return view('admin.pages.films.show', compact('film', 'categoryFilms', 'cinemaFilms'));
         } catch (Exception $e) {
             return redirect()->route('admin.films.index')
                 ->with('message', trans('film.admin.message.edit_fail'));
@@ -155,10 +163,11 @@ class FilmController extends Controller
         DB::beginTransaction();
         try {
             $film->cateroryFilms()->delete();
+            $film->cinemaFilms()->delete();
             $film->images()->delete();
             $film->comments()->delete();
             $film->ratings()->delete();
-            foreach ($film->schedules() as $schedule) {
+            foreach ($film->cinemaFilms()->schedules() as $schedule) {
                 $bookingDetails = BookingDetail::with('ticket.schedule')
                 ->whereIn('ticket_id', $schedule->tickets()->get(['tickets.id']))
                 ->get();

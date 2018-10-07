@@ -24,22 +24,11 @@
       @csrf
       <div class="box-body">
         <div class="form-group">
-          <label class="control-label col-md-3">@lang('schedule.admin.add.choose_cinema')</label>
-          <div class="col-sm-8">
-            <select class="form-control" id="select-cinema" name="cinema">
-              @foreach ($cinemas as $cinema)
-                <option value="{{ $cinema->id }}">{{ $cinema->name }}</option>
-              @endforeach
-            </select>
-          </div>
-        </div>
-          
-        <div class="form-group">
-          <label class="control-label col-md-3">@lang('schedule.admin.add.choose_film')</label>
+          <label class="control-label col-md-3">@lang('schedule.admin.add.choose_film')-Cinema</label>
           <div class="col-sm-8">
             <select class="form-control" id="select-film" name="film">
-              @foreach ($films as $film)
-                <option value="{{ $film->id }}">{{ $film->name }}</option>
+              @foreach ($cinemaFilms as $cinemaFilm)
+                <option value="{{ $cinemaFilm->id }}">{{ $cinemaFilm->film->name }} - {{ $cinemaFilm->cinema->name }}</option>
               @endforeach
             </select>
           </div>
@@ -48,9 +37,7 @@
           <label class="control-label col-md-3">@lang('schedule.admin.add.choose_room')</label>
           <div class="col-md-8">
             <select class="form-control" id="select-room" name="room">
-              @foreach ($rooms as $room)
-              <option value="{{ $room->id }}">{{ $room->name }}</option>
-              @endforeach
+             
             </select>
           </div>
         </div>
@@ -103,4 +90,7 @@
     </form>
   </div>
 </div>
+@endsection
+@section('script')
+  <script src="js/admin/add_room.js"></script>
 @endsection

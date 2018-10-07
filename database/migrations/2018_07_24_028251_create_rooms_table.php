@@ -16,6 +16,10 @@ class CreateRoomsTable extends Migration
         Schema::create('rooms', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->unsignedInteger('cinema_id');
+            $table->foreign('cinema_id')
+                    ->references('id')
+                    ->on('cinemas');
             $table->boolean('status')->default(0)->comment('0: Available, 1: Unavailable');
             $table->timestamps();
         });

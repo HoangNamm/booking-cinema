@@ -27,13 +27,23 @@ class Cinema extends Model
     ];
 
 
+     /**
+     * Get many category film detail of film.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsToMany
+     */
+    public function films()
+    {
+        return $this->belongsToMany('App\Models\Film', 'cinema_film', 'cinema_id', 'film_id')->withTimestamps();
+    }
+
     /**
      * Get list Schedule of Cinema
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function schedules()
+    public function rooms()
     {
-        return $this->hasMany('App\Models\Schedule', 'schedule_id', 'id');
+        return $this->hasMany('App\Models\Room', 'cinema_id', 'id');
     }
 }

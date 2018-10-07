@@ -11,6 +11,7 @@ use App\Models\Room;
 use App\Models\BookingDetail;
 use App\Models\Ticket;
 use App\Models\Cinema;
+use App\Models\CinemaFilm;
 use App\Http\Requests\CreateScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 
@@ -26,7 +27,6 @@ class ScheduleController extends Controller
     {
         $getField = [
             'schedules.id as id',
-            'rooms.status',
             'rooms.name as name',
             'schedules.start_time',
             'schedules.end_time',
@@ -34,9 +34,10 @@ class ScheduleController extends Controller
             'cinemas.name as cinema_name',
         ];
         $schedules = DB::table('schedules')
-            ->join('films', 'schedules.film_id', 'films.id')
+            ->join('cinema_film', 'schedules.cinema_film_id', 'cinema_film.id')
+            ->join('films', 'cinema_film.film_id', 'films.id')
+            ->join('cinemas', 'cinemas.id', 'cinema_film.cinema_id')
             ->join('rooms', 'schedules.room_id', 'rooms.id')
-            ->join('cinemas', 'cinemas.id', 'schedules.cinema_id')
             ->select($getField)
             ->where('schedules.deleted_at', null)
             ->orderBy('schedules.id')
@@ -51,13 +52,14 @@ class ScheduleController extends Controller
      */
     public function create()
     {
-        $films = Film::where('end_date', '>=', now())->where('start_date', '<=', now())->get();
-        $rooms = Room::all();
-        $cinemas = Cinema::all();
+        $cinemaFilms = CinemaFilm::whereIn('film_id', function($q){
+            $q->select('id')
+              ->from('films')
+              ->where('end_date', '>=', now())
+              ->where('start_date', '<=', now());
+        })->get();
         return view('admin.pages.schedules.create', [
-            'films' => $films,
-            'rooms' => $rooms,
-            'cinemas' => $cinemas
+            'cinemaFilms' => $cinemaFilms
         ]);
     }
 
@@ -111,7 +113,7 @@ class ScheduleController extends Controller
             }
             // insert schedule to databases
             $data = [
-                'film_id' => $request->film,
+                'cinema_film_id' => $request->film,
                 'room_id' => $request->room,
                 'start_time' => $startTime,
                 'end_time' => $endTime
@@ -141,8 +143,7 @@ class ScheduleController extends Controller
             'start_time' => Carbon::parse($schedule->start_time)->format('d-m-Y H:i'),
             'end_time' => Carbon::parse($schedule->end_time)->format('d-m-Y H:i'),
             'room_id' => $schedule->room_id,
-            'film_id' => $schedule->film_id,
-            'cinema_id' => $schedule->cinema_id
+            'cinema_film_id' => $schedule->cinema_film_id
         ];
         $films = Film::where('end_date', '>=', now())->where('start_date', '<=', now())->get();
         $rooms = Room::all();

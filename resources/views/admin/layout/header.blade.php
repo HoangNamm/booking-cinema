@@ -13,7 +13,11 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs">
+              @if (Auth::user())
+                {{ Auth::user()->full_name }}
+              @endif
+            </span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -21,7 +25,9 @@
                 <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - Web Developer
+                  @if (Auth::user())
+                    {{ Auth::user()->full_name }}
+                  @endif
                   <small>Member since Nov. 2012</small>
                 </p>
               </li>
@@ -43,10 +49,10 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Profile</a>
+                  <a href="{{ route('admin.users.show', Auth::user()->id) }}" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                  <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat">Sign out</a>
                 </div>
               </li>
             </ul>

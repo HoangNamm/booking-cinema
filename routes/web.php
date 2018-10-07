@@ -25,7 +25,7 @@ Route::get('/auth/profile', function () {
 })->name('auth.profile');
 
 Auth::routes();
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], function() {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin', 'middleware' => 'adminLogin'], function() {
     Route::get('/dashboard', function() {
       return view('admin.pages.home.index');
     })->name('dashboard');
@@ -37,6 +37,12 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::get('/cinemas/room/{id}', 'CinemaController@getRoom');
     Route::resource('schedules', 'ScheduleController');
     Route::resource('bookings', 'BookingController');
+});
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Auth'], function() {
+    Route::get('/login', 'LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'LoginController@login')->name('login');
+    Route::get('/logout', 'LoginController@logout')->name('logout');
 });
 
 Route::get('/home', 'HomeController@index')->name('home');

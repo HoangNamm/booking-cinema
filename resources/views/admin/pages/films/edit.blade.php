@@ -26,6 +26,25 @@
             @method('PUT')
             <div class="box-body">
               <div class="form-group row">
+                <label class="control-label col-md-3">Cinema</label>
+                  <div class="col-md-8" >
+                    <select name="cinemas[]" id="multiple_dropdown_select_cinema" class="form-control col-md-8 active" multiple>
+                    @foreach ( $cinemas as $cinema )
+                    <option value="{{ $cinema->id }}"
+                    @if (in_array($cinema->id, $cinemaIds))
+                    {{ "selected" }}
+                    @endif
+                    >{{ $cinema->name }}</option>   
+                    @endforeach
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <label class="control-label col-md-3"></label>
+                  <div class="col-md-8">
+                    <input class="form-control col-md-8 active" type="text" id="selected_cinema_values" name="multiple_selected_values" disabled>
+                  </div>
+                </div>
                 <label class="control-label col-md-3">@lang('category.admin.title')</label>
                 <div class="col-md-8" >
                   <select name="categories[]" id="multiple_dropdown_select" class="form-control col-md-8 active" multiple>

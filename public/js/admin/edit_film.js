@@ -1,6 +1,7 @@
 var selText;
 $( window ).on( "load", function() {
     selText = "";
+    selTextCinema = "";
       $("#multiple_dropdown_select option:selected").each(function () {
         var $this = $(this);   
         if(selText != ""){
@@ -11,6 +12,17 @@ $( window ).on( "load", function() {
           selText = $this.text();
       });
       document.getElementById("selected_values").value = selText;
+
+      $("#multiple_dropdown_select_cinema option:selected").each(function () {
+        var $this = $(this);   
+        if(selTextCinema != ""){
+          selTextCinema = selTextCinema.concat(","); 
+          selTextCinema = selTextCinema.concat($this.text());
+        }
+        else
+          selTextCinema = $this.text();
+      });
+      document.getElementById("selected_cinema_values").value = selTextCinema;
 });
 
 $(document).ready(function(){

@@ -12,13 +12,11 @@ class SchedulesTableSeeder extends Seeder
      */
     public function run()
     {
-        $films = App\Models\Film::all();
-        $rooms = App\Models\Room::all();
-        $cinemas = App\Models\Cinema::all();
+        $cinemafilms = App\Models\CinemaFilm::all()->pluck('id')->toArray();
+        $rooms = App\Models\Room::all()->pluck('id')->toArray();
         factory(App\Models\Schedule::class, 10)->create([
-            'film_id' => $films->random()->id,
-            'room_id' => $rooms->random()->id,
-            'cinema_id' => $cinemas->random()->id,
+            'cinema_film_id' => array_random($cinemafilms),
+            'room_id' => array_random($rooms)
         ]);
     }
 }

@@ -34,7 +34,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'namespace' => 'Admin'], fu
     Route::resource('cinemas', 'CinemaController');
     Route::resource('films', 'FilmController');
     //Route::resource('tickets', 'TicketController');
-    // Route::get('/tickets/film/{id}', 'TicketController@getFilm');
+    Route::get('/cinemas/room/{id}', 'CinemaController@getRoom');
     Route::resource('schedules', 'ScheduleController');
     Route::resource('bookings', 'BookingController');
 });

@@ -14,8 +14,18 @@ class Room extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'status'
+        'cinema_id', 'name', 'status'
     ];
+
+    /**
+     * Get seats detail of room.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function schedules()
+    {
+        return $this->hasMany('App\Models\Schedule', 'room_id', 'id');
+    }
 
     /**
      * Get seats detail of room.
@@ -32,8 +42,8 @@ class Room extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function schedules()
+    public function cinemas()
     {
-        return $this->hasMany('App\Models\Schedule', 'room_id', 'id');
+        return $this->belongsTo()('App\Models\Cinema', 'cinema_id', 'id');
     }
 }

@@ -25,6 +25,22 @@
             @csrf
             <div class="box-body">
               <div class="form-group row">
+                <label class="control-label col-md-3">Cinema</label>
+                <div class="col-md-8" >
+                  <select name="cinemas[]" id="multiple_dropdown_select_cinema" class="form-control col-md-8" multiple>
+                    @foreach ( $cinemas as $cinema )
+                    <option value="{{ $cinema->id }}">{{ $cinema->name }}</option>
+                    @endforeach
+                  </select>
+                </div>
+              </div>
+              <div class="form-group row">
+                  <label class="control-label col-md-3"></label>
+                  <div class="col-md-8">
+                    <input class="form-control col-md-8" type="text" id="selected_cinema_values" name="multiple_selected_values" disabled>
+                  </div>
+                </div>
+              <div class="form-group row">
                 <label class="control-label col-md-3">@lang('category.admin.title')</label>
                 <div class="col-md-8" >
                   <select name="categories[]" id="multiple_dropdown_select" class="form-control col-md-8" multiple>

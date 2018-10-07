@@ -23,27 +23,27 @@ class Schedule extends Model
      * @var array
      */
     protected $fillable = [
-        'room_id', 'film_id', 'start_time', 'end_time'
+        'cinema_film_id','room_id', 'start_time', 'end_time'
     ];
 
     /**
-     * Get room detail of schedule.
+     * Get ticket of schedule.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\belongTo
+     */
+    public function cinema_film()
+    {
+        return $this->belongsTo('App\Models\CinemaFilm', 'cinema_film_id', 'id');
+    }
+
+    /**
+     * Get ticket of schedule.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongTo
      */
     public function room()
     {
         return $this->belongsTo('App\Models\Room', 'room_id', 'id');
-    }
-
-    /**
-     * Get film detail of schedule.
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
-     */
-    public function film()
-    {
-        return $this->belongsTo('App\Models\Film', 'film_id', 'id');
     }
 
     /**

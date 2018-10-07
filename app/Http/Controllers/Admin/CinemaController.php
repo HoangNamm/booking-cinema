@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Cinema;
+use App\Models\CinemaFilm;
 use App\Http\Requests\CreateCinemaRequest;
 
 class CinemaController extends Controller
@@ -29,6 +30,19 @@ class CinemaController extends Controller
     public function create()
     {
         return view('admin.pages.cinemas.create');
+    }
+
+    /**
+     * Show the film for creating a new ticket.
+     *
+     *@param int $id id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getRoom($id)
+    {
+        $rooms = CinemaFilm::find($id)->cinema->rooms;
+        return response()->json($rooms);
     }
 
     /**

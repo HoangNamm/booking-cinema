@@ -11,6 +11,9 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory('App\Models\User', 10)->create();
+        $roles = App\Models\Role::all()->pluck('id')->toArray();
+        factory(App\Models\User::class,10)->create([
+            'role_id' => array_random($roles)
+        ]);
     }
 }

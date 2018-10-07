@@ -9,17 +9,17 @@ class Permission extends Model
     protected $table = 'permissions';
 
     protected $fillable = [
-        'type'
+        'name', 'role_id', 'action_id'
     ];
 
     /**
      * Get the permission for the user.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
-    public function userPermissions()
+    public function role()
     {
-        return $this->hasMany('App\Models\User', 'permission_id', 'id');
+        return $this->belongsTo('App\Models\Role', 'role_id', 'id');
     }
 
     /**
@@ -27,8 +27,8 @@ class Permission extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
-    public function permissionDetails()
+    public function action()
     {
-        return $this->hasMany('App\Models\PermissionDetail', 'permission_id', 'id');
+        return $this->belongsTo('App\Models\Action', 'action_id', 'id');
     }
 }
